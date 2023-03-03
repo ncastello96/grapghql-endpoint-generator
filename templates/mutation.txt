@@ -1,0 +1,25 @@
+import { GraphQLNonNull } from 'graphql';
+import {
+  {{data.endpointName}}Input,
+  {{data.endpointName}}InputGQLType,
+  {{data.endpointName}}Output,
+  {{data.endpointName}}OutputGQLType,
+} from './{{data.getTypeFileForImport()}}';
+
+export const {{data.getEndpointFullName()}} = {
+  description: 'Endpoint for writing audit logs to the database',
+  type: GraphQLNonNull({{data.endpointName}}OutputGQLType),
+  args: {
+    input: {
+      type: GraphQLNonNull({{data.endpointName}}InputGQLType),
+    },
+  },
+  resolve,
+};
+
+async function resolve(
+  _: unknown,
+  { input }: { input: {{data.endpointName}}Input }
+): Promise<{{data.endpointName}}Output> {
+  // Call action
+}

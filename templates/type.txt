@@ -1,0 +1,49 @@
+import {
+  GraphQLInputObjectType,
+  GraphQLObjectType,
+  GraphQLNonNull
+} from 'graphql';
+
+{% if data.inputFields %}
+export interface {{data.endpointName}}Input {
+  // Insert fields here
+  {% for field in data.inputFields %}
+  {{field.name}}{% if not field.required %}?{% endif %}: {{field.tsType}};
+  {% endfor %}
+};
+
+export const {{data.endpointName}}InputGQLType = new GraphQLInputObjectType({
+  name: '{{data.endpointName}}Input',
+  fields: {
+    // Insert fields here
+    {% for field in data.inputFields %}
+    {{field.name}}: {
+      type: {% if field.required %}GraphQLNonNull({{field.gqlType}}){% else %}{{field.gqlType}}{% endif %},
+      {% if field.description %}description: "{{field.description}}",{% endif %}
+    },
+    {% endfor %}
+  },
+});
+{% endif %}
+
+{% if data.outputFields %}
+export interface {{data.endpointName}}Output {
+  // Insert fields here
+  {% for field in data.outputFields %}
+  {{field.name}}{% if not field.required %}?{% endif %}: {{field.tsType}};
+  {% endfor %}
+}
+
+export const {{data.endpointName}}OutputGQLType = new GraphQLObjectType({
+  name: '{{data.endpointName}}Output',
+  fields: {
+    // Insert fields here
+    {% for field in data.outputFields %}
+    {{field.name}}: {
+      type: {% if field.required %}GraphQLNonNull({{field.gqlType}}){% else %}{{field.gqlType}}{% endif %},
+      {% if field.description %}description: "{{field.description}}",{% endif %}
+    },
+    {% endfor %}
+  },
+});
+{% endif %}
