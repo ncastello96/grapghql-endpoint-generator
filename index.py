@@ -2,6 +2,7 @@ from jinja2 import Environment, FileSystemLoader
 from collectInput import *
 from utils import *
 import os
+import sys
 
 OUTPUT_DIR = "./output"
 TEMPLATES_DIR = "./templates"
@@ -14,8 +15,12 @@ for file in os.scandir(OUTPUT_DIR):
 environment = Environment(
     loader=FileSystemLoader(TEMPLATES_DIR), trim_blocks=True, lstrip_blocks=True
 )
-userInputObj = getUserInput()
-# userInputObj = getTestData()
+
+userInputObj = None
+if len(sys.argv) > 1 and sys.argv[1] == "test":
+    userInputObj = getTestData()
+else:
+    userInputObj = getUserInput()
 
 templateNames = os.listdir(TEMPLATES_DIR)
 
