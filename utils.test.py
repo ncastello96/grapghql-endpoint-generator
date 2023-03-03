@@ -3,9 +3,9 @@ from utils import *
 
 
 class TestUtils(unittest.TestCase):
-    def test_convertPascalToKebab(self):
+    def test_convertCamelToKebab(self):
         self.assertEqual(
-            convertPascalToKebab("AuditLogChanges"),
+            convertCamelToKebab("auditLogChanges"),
             "audit-log-changes",
             "Should convert to kebab",
         )

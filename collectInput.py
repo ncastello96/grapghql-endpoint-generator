@@ -29,8 +29,8 @@ def getAndValidateEndpointType():
 def getAndValidateEndpointName(endpointType):
     response = ""
 
-    while not isPascalCase(response):
-        response = input(f"Enter the name of the GQL {endpointType} (PascalCase): ")
+    while not isCamelCase(response):
+        response = input(f"Enter the name of the GQL {endpointType} (camelCase): ")
 
     return response
 
@@ -79,7 +79,7 @@ def getAndValidateField():
 
 def getTestData():
     endpointType = "Mutation"
-    endpointName = "AuditLogChanges"
+    endpointName = "auditLogChanges"
     inputFields = [
         Field("transactionId", "Integer", True, "The id of the transaction"),
         Field("model", "String", True, "The model of the change"),

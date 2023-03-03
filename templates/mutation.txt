@@ -1,17 +1,17 @@
 import { GraphQLNonNull } from 'graphql';
 import {
-  {{data.endpointName}}Input,
-  {{data.endpointName}}InputGQLType,
-  {{data.endpointName}}Output,
-  {{data.endpointName}}OutputGQLType,
+  {{data.getEndpointNamePascalCase()}}Input,
+  {{data.getEndpointNamePascalCase()}}InputGQLType,
+  {{data.getEndpointNamePascalCase()}}Output,
+  {{data.getEndpointNamePascalCase()}}OutputGQLType,
 } from './{{data.getTypeFileForImport()}}';
 
 export const {{data.getEndpointFullName()}} = {
   description: 'Endpoint for writing audit logs to the database',
-  type: GraphQLNonNull({{data.endpointName}}OutputGQLType),
+  type: GraphQLNonNull({{data.getEndpointNamePascalCase()}}OutputGQLType),
   args: {
     input: {
-      type: GraphQLNonNull({{data.endpointName}}InputGQLType),
+      type: GraphQLNonNull({{data.getEndpointNamePascalCase()}}InputGQLType),
     },
   },
   resolve,
@@ -19,7 +19,7 @@ export const {{data.getEndpointFullName()}} = {
 
 async function resolve(
   _: unknown,
-  { input }: { input: {{data.endpointName}}Input }
-): Promise<{{data.endpointName}}Output> {
+  { input }: { input: {{data.getEndpointNamePascalCase()}}Input }
+): Promise<{{data.getEndpointNamePascalCase()}}Output> {
   // Call action
 }

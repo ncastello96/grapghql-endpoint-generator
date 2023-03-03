@@ -2,10 +2,10 @@ import re
 import os
 
 
-def convertPascalToKebab(pascalCaseName):
-    if not isPascalCase(pascalCaseName):
-        print(f"The input {pascalCaseName} is not valid PascalCase!")
-    return re.sub(r"(?<!^)(?=[A-Z])", "-", pascalCaseName).lower()
+def convertCamelToKebab(camelCaseName):
+    if not isCamelCase(camelCaseName):
+        print(f"The input {camelCaseName} is not valid camelCase!")
+    return re.sub(r"(?<!^)(?=[A-Z])", "-", camelCaseName).lower()
 
 
 def getFileNameWithoutExtension(fileName):
@@ -18,6 +18,10 @@ def swapExtension(fileName, newExtension):
 
 def lowerCaseFirstLetter(input):
     return f"{input[0].lower()}{input[1:]}"
+
+
+def upperCaseFirstLetter(input):
+    return f"{input[0].upper()}{input[1:]}"
 
 
 def isPascalCase(input):

@@ -1,0 +1,119 @@
+import {
+  {{data.getEndpointNamePascalCase()}}Input,
+  {{data.getEndpointNamePascalCase()}}Output,
+} from './{{data.getTypeFileForImport()}}';
+import {
+  destroyFakeAccount,
+  generateFakeAccount,
+} from '../../../../test/helpers/fake-data-generator';
+import { UserRole } from '../../../models/user.type';
+import { FakeAccount } from '../../../../test/helpers/fake-data-generator/db/generate-fake-account';
+import { graphqlRequest } from '../../../../test/helpers/graphql';
+import supertest from 'supertest';
+import * as {{data.getActionName()}}Action from '<path_to_action>';
+
+describe('{{data.getEndpointFullName()}}', () => {
+  let account: FakeAccount;
+  let response: supertest.Response;
+  let input: {{data.getEndpointNamePascalCase()}}Input;
+  let {{data.getActionName()}}ActionSpy: jest.SpyInstance<
+    Promise<{{data.getEndpointNamePascalCase()}}Output>,
+    [/*<action_param1>: <action_param1_val, <action_param2>: <action_param2_val*/]
+  >;
+
+  const query = `
+  {{data.getEndpointTypeCamelCase()}} ($input: {{data.getEndpointNamePascalCase()}}Input!) {
+    {{data.endpointName}}(input: $input){
+      {% if data.hasOutputFields() %}
+      {% for field in data.outputFields %}
+      {{field.name}}
+      {% endfor %}
+      {% endif %}
+    }
+  }`;
+
+  beforeAll(async () => {
+    input = {
+      {% if data.hasInputFields() %}
+      {% for field in data.inputFields %}
+      {{field.name}}: /*<input_value>*/,
+      {% endfor %}
+      {% endif %}
+    };
+
+    {{data.getActionName()}}ActionSpy = jest.spyOn(
+      {{data.getActionName()}}Action,
+      '{{data.getActionName()}}'
+    );
+    account = await generateFakeAccount({ user: { role: UserRole.Admin } });
+  });
+
+  afterAll(async () => {
+    {{data.getActionName()}}ActionSpy.mockRestore();
+    await destroyFakeAccount(account.user.id);
+  });
+
+  describe('success case', () => {
+    beforeAll(async () => {
+      {{data.getActionName()}}ActionSpy.mockResolvedValue({
+        {% if data.hasOutputFields() %}
+        {% for field in data.outputFields %}
+        {{field.name}}: /*<resolved_value>*/,
+        {% endfor %}
+        {% endif %}
+      });
+      response = await graphqlRequest({
+        variables: {
+          input,
+        },
+        query,
+        token: account.authToken,
+      });
+    });
+
+    test('should return the proper status code', () => {
+      expect(response.statusCode).toBe(200);
+    });
+
+    test('should return the action resolved value', () => {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      const responseData = response.body.data
+        .{{data.endpointName}} as {{data.getEndpointNamePascalCase()}}Output;
+      expect(responseData).toStrictEqual(
+        expect.objectContaining({
+          {% if data.hasOutputFields() %}
+          {% for field in data.outputFields %}
+          {{field.name}}: /*<resolved_value>*/,
+          {% endfor %}
+          {% endif %}
+        })
+      );
+    });
+  });
+
+  describe('fail case', () => {
+    beforeAll(async () => {
+      {{data.getActionName()}}ActionSpy.mockRejectedValue(
+        new Error('Something bad happened')
+      );
+      response = await graphqlRequest({
+        variables: {
+          input,
+        },
+        query,
+        token: account.authToken,
+      });
+    });
+
+    test('should return the proper status code', () => {
+      expect(response.statusCode).toBe(500);
+    });
+
+    test('should return undefined for the action resolved value', () => {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      const responseData = response.body.data
+        .{{data.endpointName}} as {{data.getEndpointNamePascalCase()}}Output;
+      expect(responseData).toBeUndefined();
+    });
+  });
+});

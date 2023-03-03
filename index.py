@@ -39,4 +39,7 @@ for templateName in templateNames:
 # Add the ability to have no input / output fields
 # Figure out the resolve options
 # Allow lists to be a type
+# Allow dates to be a type
 # Allow composite types to be entered (type within a type within a type...)
+# Allow user to enter the name (and path?) of their action
+# Possibly add default values for fields

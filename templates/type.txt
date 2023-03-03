@@ -14,14 +14,14 @@ import {
 } from 'graphql';
 
 {% if data.hasInputFields() %}
-export interface {{data.endpointName}}Input {
+export interface {{data.getEndpointNamePascalCase()}}Input {
   {% for field in data.inputFields %}
   {{field.name}}{% if not field.required %}?{% endif %}: {{field.tsType}};
   {% endfor %}
 };
 
-export const {{data.endpointName}}InputGQLType = new GraphQLInputObjectType({
-  name: '{{data.endpointName}}Input',
+export const {{data.getEndpointNamePascalCase()}}InputGQLType = new GraphQLInputObjectType({
+  name: '{{data.getEndpointNamePascalCase()}}Input',
   fields: {
     {% for field in data.inputFields %}
     {{field.name}}: {
@@ -36,14 +36,14 @@ export const {{data.endpointName}}InputGQLType = new GraphQLInputObjectType({
 {% endif %}
 
 {% if data.hasOutputFields() %}
-export interface {{data.endpointName}}Output {
+export interface {{data.getEndpointNamePascalCase()}}Output {
   {% for field in data.outputFields %}
   {{field.name}}{% if not field.required %}?{% endif %}: {{field.tsType}};
   {% endfor %}
 }
 
-export const {{data.endpointName}}OutputGQLType = new GraphQLObjectType({
-  name: '{{data.endpointName}}Output',
+export const {{data.getEndpointNamePascalCase()}}OutputGQLType = new GraphQLObjectType({
+  name: '{{data.getEndpointNamePascalCase()}}Output',
   fields: {
     {% for field in data.outputFields %}
     {{field.name}}: {

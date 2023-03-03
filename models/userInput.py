@@ -1,4 +1,4 @@
-from utils import lowerCaseFirstLetter, convertPascalToKebab
+from utils import upperCaseFirstLetter, convertCamelToKebab, lowerCaseFirstLetter
 
 # from field import Field
 
@@ -17,13 +17,22 @@ class UserInput:
         self.outputFields = outputFields
 
     def getEndpointFullName(self):
-        return f"{lowerCaseFirstLetter(self.endpointName)}{self.endpointType}"
+        return f"{self.endpointName}{self.endpointType}"
 
     def getFileNamePrefix(self):
-        return convertPascalToKebab(self.endpointName)
+        return convertCamelToKebab(self.endpointName)
 
     def getTypeFileForImport(self):
         return f"{self.getFileNamePrefix()}.type"
+
+    def getActionName(self):
+        return self.endpointName
+
+    def getEndpointNamePascalCase(self):
+        return upperCaseFirstLetter(self.endpointName)
+
+    def getEndpointTypeCamelCase(self):
+        return lowerCaseFirstLetter(self.endpointType)
 
     # To resolve imports in templates
     def hasInputFields(self):
