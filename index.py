@@ -38,3 +38,5 @@ for templateName in templateNames:
 # TODO: Fix module not found error in userInput.py with importing field type
 # Add the ability to have no input / output fields
 # Figure out the resolve options
+# Allow lists to be a type
+# Allow composite types to be entered (type within a type within a type...)

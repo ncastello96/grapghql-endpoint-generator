@@ -1,10 +1,19 @@
 import {
+  {% if data.hasInputFields() %}
   GraphQLInputObjectType,
+  {% endif %}
+  {% if data.hasOutputFields() %}
   GraphQLObjectType,
-  GraphQLNonNull
+  {% endif %}
+  {% if data.hasRequiredFields() %}
+  GraphQLNonNull,
+  {% endif %}
+  {% for type in data.getAllUniqueGqlTypes() %}
+  {{type}},
+  {% endfor %}
 } from 'graphql';
 
-{% if data.inputFields %}
+{% if data.hasInputFields() %}
 export interface {{data.endpointName}}Input {
   {% for field in data.inputFields %}
   {{field.name}}{% if not field.required %}?{% endif %}: {{field.tsType}};
@@ -26,7 +35,7 @@ export const {{data.endpointName}}InputGQLType = new GraphQLInputObjectType({
 });
 {% endif %}
 
-{% if data.outputFields %}
+{% if data.hasOutputFields() %}
 export interface {{data.endpointName}}Output {
   {% for field in data.outputFields %}
   {{field.name}}{% if not field.required %}?{% endif %}: {{field.tsType}};
