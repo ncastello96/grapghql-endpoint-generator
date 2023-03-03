@@ -5,8 +5,8 @@ inputToGqlTypeMap = {
     "Float": "GraphQLFloat",
     "Boolean": "GraphQLBoolean",
     "String": "GraphQLString",
-    "Enum": "// Generate enum file and use that type here",
-    "Other": "// FILL IN custom type here",
+    "Enum": "/* Generate GraphQLEnumType file and use that type here */",
+    "Other": "/* FILL IN custom type here */",
 }
 
 inputToTsTypeMap = {
@@ -14,8 +14,8 @@ inputToTsTypeMap = {
     "Float": "number",
     "Boolean": "boolean",
     "String": "string",
-    "Enum": "// FILL IN enum type here",
-    "Other": "// FILL IN custom type here",
+    "Enum": "/* FILL IN enum type here */",
+    "Other": "/* FILL IN custom type here */",
 }
 
 

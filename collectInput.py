@@ -85,6 +85,7 @@ def getTestData():
         Field("model", "String", True, "The model of the change"),
         Field("fromValue", "String", True, "The before value"),
         Field("toValue", "String", True, "The after value"),
+        Field("type", "Enum", False, "The originator (external, system, or user)"),
     ]
     outputFields = [
         Field(

@@ -43,10 +43,10 @@ class UserInput:
                 return True
         return False
 
-    # TODO: Need to deal with enums, list and other types
     def getAllUniqueGqlTypes(self):
         allFields = self.inputFields + self.outputFields
-        allGqlTypes = [x.gqlType for x in allFields]
+        # Hack to only return GQL types that are one word aka dont return placeholders for the import
+        allGqlTypes = [x.gqlType for x in allFields if len(x.gqlType.split(" ")) == 1]
         return list(set(allGqlTypes))
 
 
