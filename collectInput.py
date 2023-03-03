@@ -10,9 +10,12 @@ from models.userInput import UserInput
 def getUserInput():
     endpointType = getAndValidateEndpointType()
     endpointName = getAndValidateEndpointName(endpointType)
+    endpointDescription = getendpointDescription(endpointType)
     inputFields = getInputFields()
     outputFields = getOutputFields()
-    return UserInput(endpointType, endpointName, inputFields, outputFields)
+    return UserInput(
+        endpointType, endpointName, endpointDescription, inputFields, outputFields
+    )
 
 
 def getAndValidateEndpointType():
@@ -33,6 +36,10 @@ def getAndValidateEndpointName(endpointType):
         response = input(f"Enter the name of the GQL {endpointType} (camelCase): ")
 
     return response
+
+
+def getendpointDescription(endpointType):
+    return input(f"Enter the description of this {endpointType}: ")
 
 
 def getInputFields():

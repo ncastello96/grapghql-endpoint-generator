@@ -8,11 +8,13 @@ class UserInput:
         self,
         endpointType: str,
         endpointName: str,
+        endpointDescription: str,
         inputFields,
         outputFields,
     ) -> None:
         self.endpointType = endpointType
         self.endpointName = endpointName
+        self.endpointDescription = endpointDescription
         self.inputFields = inputFields
         self.outputFields = outputFields
 

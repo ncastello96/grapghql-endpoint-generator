@@ -44,3 +44,4 @@ for templateName in templateNames:
 # Allow user to enter the name (and path?) of their action
 # Possibly add default values for fields
 # Fix case where user enters empty string and we try to cast to int in getInputFields
+# THIS WILL CREATE QUERIES IN A .mutation file. Fix this! Need a query template or to change the name dynamically
