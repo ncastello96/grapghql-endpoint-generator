@@ -14,8 +14,8 @@ for file in os.scandir(OUTPUT_DIR):
 environment = Environment(
     loader=FileSystemLoader(TEMPLATES_DIR), trim_blocks=True, lstrip_blocks=True
 )
-# userInputObj = getUserInput()
-userInputObj = getTestData()
+userInputObj = getUserInput()
+# userInputObj = getTestData()
 
 templateNames = os.listdir(TEMPLATES_DIR)
 
@@ -32,3 +32,4 @@ for templateName in templateNames:
 
 # TODO: Fix module not found error in userInput.py with importing field type
 # Add the ability to have no input / output fields
+# Figure out the resolve options

@@ -1,0 +1,1 @@
+booleanOptions = [True, False]

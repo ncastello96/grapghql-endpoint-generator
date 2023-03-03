@@ -1,5 +1,8 @@
 from utils import *
-from models.fieldTypeEnum import fieldTypes, booleanOptions, enterFieldsMenuOptions
+
+from menus.booleanMenu import booleanOptions
+from menus.typeMenu import typeOptions
+from menus.enterFieldsMenu import enterFieldsOptions
 from models.field import Field
 from models.userInput import UserInput
 
@@ -36,11 +39,9 @@ def getInputFields():
     fields = []
     choice = None
     print("Input Fields: ")
-    while choice != enterFieldsMenuOptions.index("Done"):
+    while choice != enterFieldsOptions.index("Done"):
         fields.append(getAndValidateField())
-        choice = int(
-            input(menuToString("Select an option below", enterFieldsMenuOptions))
-        )
+        choice = int(input(menuToString("Select an option below", enterFieldsOptions)))
     return fields
 
 
@@ -48,11 +49,9 @@ def getOutputFields():
     fields = []
     choice = None
     print("Output Fields: ")
-    while choice != enterFieldsMenuOptions.index("Done"):
+    while choice != enterFieldsOptions.index("Done"):
         fields.append(getAndValidateField())
-        choice = int(
-            input(menuToString("Select an option below", enterFieldsMenuOptions))
-        )
+        choice = int(input(menuToString("Select an option below", enterFieldsOptions)))
     return fields
 
 
@@ -62,11 +61,11 @@ def getAndValidateField():
         name = input("Enter the variable name (camelCase): ")
 
     choice = None
-    while not isValidChoice(choice, getNumericalChoicesForMenuItems(fieldTypes)):
+    while not isValidChoice(choice, getNumericalChoicesForMenuItems(typeOptions)):
         choice = int(
-            input(menuToString("Enter which type represents the field", fieldTypes))
+            input(menuToString("Enter which type represents the field", typeOptions))
         )
-    fieldType = fieldTypes[choice]
+    fieldType = typeOptions[choice]
 
     choice = None
     while not isValidChoice(choice, getNumericalChoicesForMenuItems(booleanOptions)):
