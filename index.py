@@ -43,3 +43,4 @@ for templateName in templateNames:
 # Allow composite types to be entered (type within a type within a type...)
 # Allow user to enter the name (and path?) of their action
 # Possibly add default values for fields
+# Fix case where user enters empty string and we try to cast to int in getInputFields

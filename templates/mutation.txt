@@ -15,7 +15,7 @@ export const {{data.getEndpointFullName()}} = {
     },
   },
   resolve,
-};
+}
 
 async function resolve(
   _: unknown,
