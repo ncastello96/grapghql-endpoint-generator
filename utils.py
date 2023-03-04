@@ -12,6 +12,23 @@ def getFileNameWithoutExtension(fileName):
     return os.path.splitext(fileName)[0]
 
 
+def createFileNameFromTemplateName(userInput, templateName):
+    # Input example: mutation_query.medium-test.txt
+    ENDPOINT_TYPE_PLACEHOLDER = "mutation_query"
+
+    # Replace the 'mutation_query' placeholder with the endpoint type (mutation OR query)
+    # Ex mutation.medium-test.txt
+    templateName = templateName.replace(
+        ENDPOINT_TYPE_PLACEHOLDER, lowerCaseFirstLetter(userInput.endpointType)
+    )
+    # Add name
+    # Ex audit-log-changes.mutation.medium-test.txt
+    fileNameWithBadExtension = f"{userInput.getFileNamePrefix()}.{templateName}"
+    # Put the correct extension
+    # Ex audit-log-changes.mutation.medium-test.ts
+    return swapExtension(fileNameWithBadExtension, "ts")
+
+
 def swapExtension(fileName, newExtension):
     return f"{getFileNameWithoutExtension(fileName)}.{newExtension}"
 

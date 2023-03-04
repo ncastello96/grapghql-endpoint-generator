@@ -84,9 +84,10 @@ def getAndValidateField():
     return Field(name, fieldType, required, description)
 
 
-def getTestData():
+def getMutationTestData():
     endpointType = "Mutation"
     endpointName = "auditLogChanges"
+    endpointDescription = "An endpoint to add an auditLogChange to the database"
     inputFields = [
         Field("transactionId", "Integer", True, "The id of the transaction"),
         Field("model", "String", True, "The model of the change"),
@@ -108,4 +109,32 @@ def getTestData():
             "The number of transactions written to the database",
         ),
     ]
-    return UserInput(endpointType, endpointName, inputFields, outputFields)
+    return UserInput(
+        endpointType, endpointName, endpointDescription, inputFields, outputFields
+    )
+
+
+def getQueryTestData():
+    endpointType = "Query"
+    endpointName = "product"
+    endpointDescription = "An endpoint to get products"
+    inputFields = [
+        Field("id", "Integer", True, "The id of the product"),
+    ]
+    outputFields = [
+        Field(
+            "name",
+            "String",
+            True,
+            "The name of the product",
+        ),
+        Field(
+            "sku",
+            "String",
+            True,
+            "The stock keeping unit",
+        ),
+    ]
+    return UserInput(
+        endpointType, endpointName, endpointDescription, inputFields, outputFields
+    )

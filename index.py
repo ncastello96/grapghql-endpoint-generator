@@ -18,7 +18,7 @@ environment = Environment(
 
 userInputObj = None
 if len(sys.argv) > 1 and sys.argv[1] == "test":
-    userInputObj = getTestData()
+    userInputObj = getQueryTestData()
 else:
     userInputObj = getUserInput()
 
@@ -26,7 +26,7 @@ templateNames = os.listdir(TEMPLATES_DIR)
 
 for templateName in templateNames:
     template = environment.get_template(templateName)
-    fileName = f"{userInputObj.getFileNamePrefix()}.{swapExtension(templateName, 'ts')}"
+    fileName = createFileNameFromTemplateName(userInputObj, templateName)
 
     content = template.render({"data": userInputObj})
 
@@ -44,4 +44,3 @@ for templateName in templateNames:
 # Allow user to enter the name (and path?) of their action
 # Possibly add default values for fields
 # Fix case where user enters empty string and we try to cast to int in getInputFields
-# THIS WILL CREATE QUERIES IN A .mutation file. Fix this! Need a query template or to change the name dynamically
